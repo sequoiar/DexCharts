@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+body {
+  font: 10px sans-serif;
+}
+
+.arc path {
+  stroke: #fff;
+}
+
+#ParChart textarea
+{
+    width:100%;
+}
+
+#ParChart .textwrapper
+{
+    border:1px solid #999999;
+    margin:5px 0;
+    padding:5px;
+}
+
+#ParChart path
+{
+  fill: none;
+  /*stroke: #ccc;*/
+  stroke-opacity: .9;
+  shape-rendering: crispEdges;
+}
+
+#ParChart .foreground path
+{
+  fill: none;
+  stroke: steelblue;
+  stroke-opacity: .9;
+}
+
+#ParChart .brush .extent
+{
+  fill-opacity: .3;
+  stroke: #fff;
+  shape-rendering: crispEdges;
+}
+
+#ParChart .axis line, #ParChart .axis path
+{
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+#ParChart .axis text
+{
+  text-shadow: 0 1px 0 #fff;
+}
+</style>
+<body>
+<script src="http://d3js.org/d3.v3.js"></script>
+<script src="../dex.js"></script>
+<script src="../js/dex/component/d3/ClusteredForce.js"></script>
+<script src="../js/dex/component/d3/ParallelCoordinates.js"></script>
+<script>
+// Create an SVG for our chart.
+var svg = d3.select("body").append("svg")
+  .attr("width", 1000)
+  .attr("height",800)
+  .append("g")
+  .attr("transform", "translate(40,20)");
+
+var pcChart = new ParallelCoordinates(
+  {
+    'parent'      : svg,
+    'id'          : "ParChart",
+    'xoffset'     : 0,
+    'yoffset'     : 10,
+    'csv' :
+    {
+      'header' : ["C1", "C2", "C3", "C4", "C5", "C6", "C7", "C8", "C9", "C10" ],
+      'data'   : dex.datagen.randomMatrix(
+      	{"rows":10, "columns": 10, "min": 0, "max":100})
+    },
+  }
+);
+
+// Configure a chart.
+var cforce = new ClusteredForce(
+  {
+    'parent'    : svg,
+    'xoffset'   : 450,
+    'yoffset'   : 0,
+    'width'     : 600,
+    'height'    : 600,
+    'csv'       : pcChart.attr("csv"),
+    'padding'   : 10,
+    'charge'    : -100,
+    'gravity'   : 10,
+    'minRadius' : 5,
+    'maxRadius' : 20
+  }
+);
+
+pcChart.addListener("select", cforce, function(chartEvent)
+{
+  console.dir(chartEvent);
+});
+
+pcChart.render();
+cforce.render();
+</script>

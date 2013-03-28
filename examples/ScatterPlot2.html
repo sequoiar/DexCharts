@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+.chart {}
+
+.main text
+{
+  font: 10px sans-serif;	
+}
+
+.axis line, .axis path
+{
+  shape-rendering: crispEdges;
+  stroke: black;
+  fill: none;
+}
+
+circle
+{
+  fill: steelblue;
+}
+
+.line {
+  fill: none;
+  stroke: steelblue;
+  stroke-width: 1.5px;
+}
+</style>
+<body>
+<script src="http://d3js.org/d3.v3.js"></script>
+<script src="../dex.js"></script>
+<script src="../js/dex/component/d3/ScatterPlot.js"></script>
+<script src="../js/dex/component/d3/LineChart.js"></script>
+<script>
+
+// Data setup.
+var labels = [ "X", "Y" ];
+var data = d3.range(100).map(
+  function(i) { return [ i, Math.random()*100];});
+
+var csv = dex.csv.csv(labels, data);
+
+var svg = d3.select('body')
+  .append('svg:svg')
+  .attr('width', 900)
+  .attr('height', 600)
+  .attr('class', 'chart');
+
+var scatterplot = new ScatterPlot(
+  {
+    'parent'           : svg,
+    'width'            : 400,
+    'height'           : 400,
+    'csv'              : csv,
+    'xoffset'          : 50,
+    'yoffset'          : 50,
+    'unselectedRadius' : 2,
+    'selectedRadius'   : 4,
+    'unselectedColor'  : "steelblue"
+  }
+);
+scatterplot.render();
+
+var linechart = new LineChart(
+  {
+	'parent' : svg,
+	'width'  : 400,
+	'height' : 400,
+	'csv'    : csv,
+	'xoffset': 500,
+	'yoffset' : 50
+  }
+);
+linechart.render();
+
+scatterplot.addListener("brushend", linechart, function(chartEvent)
+  {
+    d3.selectAll("#lineChartContainer").remove();
+    linechart.attr('csv.data', chartEvent.data);
+    linechart.update();
+  });
+
+</script>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+.chart {}
+
+.main text
+{
+  font: 10px sans-serif;	
+}
+
+.axis line, .axis path
+{
+  shape-rendering: crispEdges;
+  stroke: black;
+  fill: none;
+}
+
+circle
+{
+  fill: steelblue;
+}
+
+.line {
+  fill: none;
+  stroke: steelblue;
+  stroke-width: 1.5px;
+}
+</style>
+<body>
+<script src="http://d3js.org/d3.v3.js"></script>
+<script src="../dex.js"></script>
+<script src="../js/dex/component/d3/ScatterPlot.js"></script>
+<script>
+
+var svg = d3.select('body')
+  .append('svg:svg')
+  .attr('width', 800)
+  .attr('height', 600)
+  .attr('class', 'chart');
+
+var plot = new ScatterPlot(
+  {
+	  'parent'           : svg,
+	  'width'            : 400,
+	  'height'           : 400,
+	  'csv'              :
+	  {
+	    'header' : [ "X", "Y"],
+	    'data'   : d3.range(1000).map(
+	      function(i) { return [ i, Math.random()*100];})
+	  },
+	  'xoffset'          : 50,
+	  'yoffset'          : 50,
+	  'unselectedRadius' : 2,
+	  'selectedRadius'   : 4,
+	  'unselectedColor'  : "steelblue"
+  }
+);
+
+//plot.debug = true;
+plot.render();
+
+</script>

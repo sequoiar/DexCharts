@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+svg {
+  font: 18px sans-serif;
+}
+
+.caption {
+  font-weight: bold;
+}
+
+.VerticalLegend path {
+  display: none;
+}
+
+.VerticalLegend line {
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+</style>
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<script src="../dex.js"></script>
+<script src="../js/dex/component/d3/VerticalLegend.js"></script>
+<body>
+<script>
+var svg = d3.select("body").append("svg")
+  .attr("width", 960)
+  .attr("height", 500);
+
+var vlegend = new VerticalLegend(
+  {
+  	parent : svg,
+  	labels : [ "A", "B", "C" ],
+  	caption: "Vertical Legend"
+  });
+vlegend.render();
+
+</script>

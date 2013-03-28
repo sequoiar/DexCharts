@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+
+svg {
+  font: 18px sans-serif;
+}
+
+.caption {
+  font-weight: bold;
+}
+
+.HorizontalLegend path {
+  display: none;
+}
+
+.VerticalLegend path {
+  display: none;
+}
+
+.HorizontalLegend line {
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.VerticalLegend line {
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+</style>
+<body>
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<script src="../dex.js"></script>
+<script src="../js/dex/component/d3/HorizontalLegend.js"></script>
+<script src="../js/dex/component/d3/VerticalLegend.js"></script>
+<script>
+
+var header =
+	[ "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M",
+	  "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z" ]
+
+var svg = d3.select("body").append("svg")
+  .attr("width", 960)
+  .attr("height", 500);
+
+var params = {}
+
+var vlegend1 = new VerticalLegend(
+  {
+  	parent : svg,
+  	labels : header,
+  	caption: "Vertical Legend"
+  });
+vlegend1.render();
+
+var hlegend1 = new HorizontalLegend(
+  {
+    parent  : svg,
+    labels  : ["A", "B", "C"],
+    xoffset : 100,
+    yoffset : 50,
+    caption : "Horizontal Legend",
+    color   : d3.scale.category10()
+  });
+hlegend1.render();
+
+hlegend1
+  .attr("caption", "Slightly Modified Horizontal Legend")
+  .attr("yoffset", 150)
+  .attr("color", d3.scale.category20()).render();
+
+</script>

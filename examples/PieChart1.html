@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+body {
+  font: 10px sans-serif;
+}
+
+.arc path {
+  stroke: #fff;
+}
+</style>
+<body>
+<script src="http://d3js.org/d3.v3.js"></script>
+<script src="../dex.js"></script>
+<script src="../js/dex/component/d3/PieChart.js"></script>
+<script>
+// Create an SVG for our chart.
+var svg = d3.select("body").append("svg")
+  .attr("width", 1000)
+  .attr("height", 800)
+  .append("g")
+  .attr("transform", "translate(40,20)");
+
+// Configure a chart.
+var pie1 = new PieChart(
+  {
+    'parent'     : svg,
+    'xoffset'    : 200,
+    'yoffset'    : 200,
+    'innerRadius' : 20,
+    'yaxisLabel' : "Frequency",
+    'csv' :
+    {
+      'labels'     : [ "Letter", "Frequency", "Some Stat" ],
+      'data'       :
+      [
+        ["A", .8167,  .1],
+        ["E", .12702, .2],
+        ["I", .06973, .3],
+        ["O", .07507, .3],
+        ["U", .02758, .4]
+      ]
+   },
+   'caption' :
+   {
+     'text'       : 'My Favorite Vowels',
+     'textAnchor' : 'middle',
+     'fontSize'   : 24
+   },
+   'yi' : [2]
+  }
+);
+pie1.render();
+</script>

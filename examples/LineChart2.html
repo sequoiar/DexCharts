@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+
+body {
+  font: 10px sans-serif;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.x.axis path {
+  /*display: none;*/
+}
+
+.line {
+  fill: none;
+  stroke: steelblue;
+  stroke-width: 1.5px;
+}
+
+</style>
+<body>
+<script src="http://d3js.org/d3.v3.js"></script>
+<script src="../dex.js"></script>
+<script src="../js/dex/component/d3/LineChart.js"></script>
+<script>
+// Here is basic CSV data.  CSV will be the core input type
+// for all of our reusable charts:
+var data = [[ "x", "abs(x)", "x^2", "x^3", "cos(x)", "sin(x)" ]];
+
+for (var i=-360;i<=360; i=i+10)
+{
+	data.push([i, Math.abs(i), i*i, i*i*i, Math.cos(i*(Math.PI/180)), Math.sin(i*(Math.PI/180)) ]);
+}
+
+// Extract the header:
+var labels = data[0];
+
+// Remove the header from the data.
+data.splice(0, 1);
+
+// Create an SVG for our chart.
+var svg = d3.select("body").append("svg")
+  .attr("width", 1000)
+  .attr("height", 800)
+  .append("g")
+  .attr("transform", "translate(40,10)");
+
+// Create the chart:
+var chart = new LineChart(
+{
+  'parent'      : svg,
+  'height'      : 400,
+  'width'       : 400,
+  'yoffset'     : 100,
+  'csv'         :
+  {
+	'header' : labels,
+    'data'   : data,
+  },
+  'xi'          : 0,
+  'yi'          : [ 4, 5 ],
+  'pointColors' : d3.scale.category10()
+});
+
+chart.render();
+</script>
+

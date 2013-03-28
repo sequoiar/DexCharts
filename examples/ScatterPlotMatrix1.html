@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+.chart {}
+
+.main text
+{
+  font: 10px sans-serif;	
+}
+
+.axis line, .axis path
+{
+  shape-rendering: crispEdges;
+  stroke: black;
+  fill: none;
+}
+
+circle
+{
+  fill: steelblue;
+}
+
+.line {
+  fill: none;
+  stroke: steelblue;
+  stroke-width: 1.5px;
+}
+</style>
+<body>
+<script src="http://d3js.org/d3.v3.js"></script>
+<script src="../dex.js"></script>
+<script src="../js/dex/component/d3/ScatterPlot.js"></script>
+<script>
+
+// Create our dataset:
+var labels = [ "X", "A", "B", "C"]
+var data =
+  d3.range(100).map(function(i)
+  {
+  	 return [ i, Math.random()*100,
+  	          Math.random() * 100, Math.random() * 100];}
+  );
+
+var csv = dex.csv.csv(labels, data);
+
+// Create our SVG
+var svg = d3.select('body')
+  .append('svg:svg')
+  .attr('width', 900)
+  .attr('height', 800)
+  .attr('class', 'chart');
+
+// Create a scatterplot for each row/column pair.
+for (var ri=0; ri<labels.length; ri++)
+{
+  for (var ci=0; ci<labels.length; ci++)
+  {
+    var plot = new ScatterPlot(
+    {
+      'parent'           : svg,
+      'width'            : 150,
+      'height'           : 150,
+      'csv'              : csv,
+      'xi'               : ri,
+      'yi'               : ci,
+      'xoffset'          : ci * 150 + 50 + (ci*20),
+      'yoffset'          : ri * 150 + 30 + (ri * 30),
+      'unselectedRadius' : 2,
+      'selectedRadius'   : 4,
+      'unselectedColor'  : "steelblue"
+    });
+    plot.render();
+  }
+}
+
+</script>

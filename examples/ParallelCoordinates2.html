@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+textarea
+{
+    width:100%;
+}
+.textwrapper
+{
+    border:1px solid #999999;
+    margin:5px 0;
+    padding:5px;
+}
+
+.background path
+{
+  fill: none;
+  stroke: #ccc;
+  stroke-opacity: .9;
+  shape-rendering: crispEdges;
+}
+
+.foreground path
+{
+  fill: none;
+  stroke: steelblue;
+  stroke-opacity: .9;
+}
+
+.brush .extent
+{
+  fill-opacity: .3;
+  stroke: #fff;
+  shape-rendering: crispEdges;
+}
+
+.axis line, .axis path
+{
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.axis text
+{
+  text-shadow: 0 1px 0 #fff;
+}
+</style>
+<body>
+<script src="http://d3js.org/d3.v3.js"></script>
+<script src="../dex.js"></script>
+<script src="../js/dex/component/d3/ClusteredForce.js"></script>
+<script src="../js/dex/component/d3/ParallelCoordinates.js"></script>
+<script>
+// Create an SVG for our chart.
+var svg = d3.select("body").append("svg")
+  .attr("width", 1000)
+  .attr("height", 800)
+  .append("g")
+  .attr("transform", "translate(40,20)");
+
+// Configure a chart.
+var pcChart = new ParallelCoordinates(
+  {
+    'parent'      : svg,
+    'csv' :
+    {
+      'header' : ["A", "B", "C", "D", "E", "F", "G", "H", "I"],
+      'data'   : dex.datagen.randomMatrix({"rows":10,"columns":9,"min":0,"max":100})
+    },
+    'normalize'   : true,
+    'color'       : d3.scale.category20c(),
+    'opacity'     : 50
+  }
+);
+
+pcChart.render();
+</script>

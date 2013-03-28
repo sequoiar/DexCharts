@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+
+body {
+  font: 10px sans-serif;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.x.axis path {
+  /*display: none;*/
+}
+
+</style>
+<body>
+<script src="http://d3js.org/d3.v3.js"></script>
+<script src="../dex.js"></script>
+<script src="../js/dex/component/d3/BarChart.js"></script>
+<script>
+// Create an SVG for our chart.
+var svg = d3.select("body").append("svg")
+  .attr("width", 1000)
+  .attr("height", 800)
+  .append("g")
+  .attr("transform", "translate(40,20)");
+
+var csv =
+{
+  'header' : d3.range(3).map(function(d) { return "C"+d;}),
+  'data'   : dex.datagen.randomMatrix({"rows":3, "columns": 3, "min": 0, "max":100}),
+};
+
+// Configure a chart.
+var chart1 = new BarChart(
+  {
+    'parent'     : svg,
+    'height'     : 200,
+    'width'      : 600,
+    'csv'        : csv,
+    'yi'         : [1],
+    'ymin'       : 0,
+    'xaxis' :
+    {
+    	'format' : function() { return d3.format(",.2f"); },
+    	'label'  :
+    	{
+    	  'text'      : 'Hellifino',
+    	  'color'     : 'black'
+    	}
+    },
+  }
+);
+chart1.render();
+
+new BarChart(chart1)
+  .attr("yaxisLabel", "Some Stat")
+  .attr("yoffset", 220)
+  .attr("yi", [2])
+  .render();
+
+new BarChart(chart1)
+  .attr("yaxisLabel", "")
+  .attr("yoffset", 440)
+  .attr("yi", [1,2])
+  .render();
+
+// Contemplating a more complex series model for data input
+//var series = new Series(csv, { "name" : "series1"});
+//console.log(series.name());
+//console.log(series.dimensions().columns);
+//console.log(series.dimensions().rows);
+//console.log(series.csv());
+//console.dir(series.value(0));
+//console.log(series.value(1, 1));
+//console.dir(series.jsonValue(1));
+//console.dir(series.jsonValue(2,1));
+
+</script>

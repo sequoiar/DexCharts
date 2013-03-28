@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+body {
+  font: 10px sans-serif;
+}
+
+.arc path {
+  stroke: #fff;
+}
+</style>
+<body>
+<script src="http://d3js.org/d3.v3.js"></script>
+<script src="../dex.js"></script>
+<script src="../js/dex/component/d3/ClusteredForce.js"></script>
+<script>
+// Create an SVG for our chart.
+var svg = d3.select("body").append("svg")
+  .attr("width", 1000)
+  .attr("height",800)
+  .append("g")
+  .attr("transform", "translate(40,20)");
+
+// Configure a chart.
+var cforce = new ClusteredForce(
+  {
+    'parent'      : svg,
+    'xoffset'     : 10,
+    'yoffset'     : 0,
+    'width'       : 800,
+    'height'      : 800,
+    'csv'         :
+    {
+      'header'    : d3.range(10).map(function(d) { return "C"+d;}),
+      'data'      : dex.datagen.randomMatrix(
+      {
+    	'rows'    : 20,
+    	'columns' : 10,
+    	'min'     : 1,
+    	'max'     : 10
+      })
+    },
+    'padding'   : 10,
+    'charge'    : -100,
+    'gravity'   : 10,
+    'minRadius' : 5,
+    'maxRadius' : 20
+  }
+);
+cforce.render();
+</script>
