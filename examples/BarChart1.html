@@ -50,7 +50,7 @@ var chart1 = new BarChart(
     	'format' : function() { return d3.format(",.2f"); },
     	'label'  :
     	{
-    	  'text'      : 'Hellifino',
+    	  'text'      : 'Gratuitous X Axis Label',
     	  'color'     : 'black'
     	}
     },
@@ -60,13 +60,13 @@ chart1.render();
 
 new BarChart(chart1)
   .attr("yaxisLabel", "Some Stat")
-  .attr("yoffset", 220)
+  .attr("yoffset", 250)
   .attr("yi", [2])
   .render();
 
 new BarChart(chart1)
   .attr("yaxisLabel", "")
-  .attr("yoffset", 440)
+  .attr("yoffset", 500)
   .attr("yi", [1,2])
   .render();
 
