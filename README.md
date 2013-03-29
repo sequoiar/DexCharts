@@ -7,6 +7,8 @@ DexCharts is a library which provides reusable charts for D3. DexCharts aims to 
 
 Future versions will include:
 
+* More charts of course.
+* More options and configurability on existing charts.
 * Ability to cross over from D3JS to other frameworks such as ThreeJS/WebGL.
 * Pluggable tool support.  IE: Charts will know enough about themselves to provide hints to tools so that they are easily integrated into visualization [tools such as Dex](http://dexvis.com/).  There is a method to my madness...
 
