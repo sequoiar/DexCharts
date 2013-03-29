@@ -60,8 +60,12 @@ ParallelCoordinates.prototype.update = function()
 
   var line = d3.svg.line();
   var axis = d3.svg.axis().orient("left");
+  // Holds unselected paths.
   var background;
+  // Holds selected paths.
   var foreground;
+  // Will hold our column names.
+  var dimensions;
 
   var chartContainer = config.parent.append("g")
     .attr("id", config["id"])
@@ -84,8 +88,6 @@ ParallelCoordinates.prototype.update = function()
     });
     
     var normalizedExtent = d3.extent(allExtents);
-
-    //console.log("NE: " + normalizedExtent);
 
     // REM: Figure out how to switch over to consistent extends.  Snapping.
     x.domain(dimensions = d3.keys(jsonData[0]).filter(function(d)
@@ -155,9 +157,6 @@ ParallelCoordinates.prototype.update = function()
           .style("stroke-opacity", config.opacity/100);
       });
 
-// Original random colors:
-//      .attr("stroke", function(d) { return '#'+Math.floor(Math.random()*16777215).toString(16); });
-
     // Add a group element for each dimension.
     var g = chartContainer.selectAll(".dimension")
       .data(dimensions)
@@ -192,7 +191,10 @@ ParallelCoordinates.prototype.update = function()
       .attr("class", "brush")
       .each(function(d)
       {
-        d3.select(this).call(y[d].brush = d3.svg.brush().y(y[d]).on("brush", brush));
+        d3.select(this).call(y[d].brush =
+        	d3.svg.brush().y(y[d])
+        	.on("brush", brush)
+        	.on("brushend", brushend));
       })
       .selectAll("rect")
       .attr("x", -8)
@@ -216,10 +218,11 @@ ParallelCoordinates.prototype.update = function()
     foreground.style("display", function(d)
     {
       return actives.every(
+        // P is column name, i is an index
         function(p, i)
         {
           // Categorical
-          //console.log("P: " + p);
+          //console.log("P: " + p + ", I: " + i);
           if (!dex.object.contains(numericColumns, p))
           {
             return extents[i][0] <= y[p](d[p]) && y[p](d[p]) <= extents[i][1];
@@ -231,16 +234,29 @@ ParallelCoordinates.prototype.update = function()
           }
         }) ? null : "none";
     });
+  }
+  
+  // Handles a brush event, toggling the display of foreground lines.
+  function brushend()
+  {
+    //dex.console.log("chart: ", chart);
+    var activeData = [];
 
-    // I am stuck here trying to figure out how to turn brushes
-    // and extents into rows in my data which are selected.
-    // SLEEP ON IT....zzzzzz
+    // WARNING:
+    //
+    // Can't find an elegant way to get back at the data so I am getting
+    // at the data in an inelegant manner instead.  Mike Bostock ever
+    // changes the __data__ convention and this will break.
+    for (var i=0; i<foreground[0].length; i++)
+    {
+    	if (!(foreground[0][i]["style"]["display"] == "none"))
+    	{
+    		activeData.push(foreground[0][i]['__data__']);
+    	}
+    }
 
- 		//console.log("P=" + p + ", I=" + i);
- 		
- 		//console.dir(d3.select(foreground));
-    //chart.notify({ "type" : "select",  "selected" : actives});
-    //console.dir(actives);
+    //dex.console.log("Selected: ", dex.json.toCsv(activeData, dimensions));
+    chart.notify({ "type" : "select", "selected" : dex.json.toCsv(activeData, dimensions)});
   }
 };
 

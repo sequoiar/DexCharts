@@ -87,6 +87,7 @@ var pcChart = new ParallelCoordinates(
 var cforce = new ClusteredForce(
   {
     'parent'    : svg,
+    'id'        : "CForce",
     'xoffset'   : 450,
     'yoffset'   : 0,
     'width'     : 600,
@@ -102,7 +103,9 @@ var cforce = new ClusteredForce(
 
 pcChart.addListener("select", cforce, function(chartEvent)
 {
-  console.dir(chartEvent);
+  dex.console.log("Chart Event:", chartEvent);
+  d3.select("#CForce").remove();
+  cforce.attr('csv', chartEvent.selected).update();
 });
 
 pcChart.render();
