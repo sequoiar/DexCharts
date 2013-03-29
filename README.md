@@ -174,3 +174,43 @@ Please download and explore the provided examples.
 ![Horizontal Legend](http://dexvis.files.wordpress.com/2013/03/horizontalordinallegend.png?w=636&h=170)
 ### Vertical Legends
 ![Vertical Legend](http://dexvis.files.wordpress.com/2013/03/image12.png?w=780&h=543)
+
+## Roadmap
+
+### New Charts
+
+* Area Charts
+* Bubble Plots
+* Chord Diagrams
+* Motion Charts
+* Hive Plots
+* Sankey Diagrams
+* Force Diagrams
+* Force Tree Diagrams
+* Starburst Diagrams
+* Partition Diagrams
+* Radar Charts
+* Node Link Diagrams
+* Indented Trees
+* Tension Diagrams
+* CoOccurrence Diagrams
+* Heatmaps
+* Circular Heatmaps
+* Packed Circles
+* Table diagram
+
+### UI Controls
+
+* Checkbox
+* Selectors
+
+### Library functions
+
+* R-Like data generation functions
+* Data acquisition
+
+### Integration with other frameworks
+
+* ThreeJS
+* ProcessingJS
+* R (How I love R - 40 years of wisdom packed in one venereable and powerful applicaton)
