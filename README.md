@@ -153,6 +153,7 @@ Please download and explore the provided examples.
 ### Bar Charts
 ![Bar Chart Example](http://dexvis.files.wordpress.com/2013/03/barchart1.png?w=688&h=715)
 ### Clustered Force Diagrams
+![Clustered Force Example](http://dexvis.files.wordpress.com/2013/03/image29.png?w=611&h=567)
 ### Line Charts
 ![Line Chart Example](http://dexvis.files.wordpress.com/2013/03/reusabledemo2.png?w=640)
 ### Parallel Coordinates
@@ -165,7 +166,11 @@ Please download and explore the provided examples.
 ### US State Map
 ![US State Map Example](http://dexvis.files.wordpress.com/2013/03/image10.png?w=666&h=368)
 ### US County Map
+![US County Map Example](http://dexvis.files.wordpress.com/2013/03/image32.png?w=621&h=343)
 ### World Country Map
+![World Country Map Example](http://dexvis.files.wordpress.com/2013/03/image33.png?w=619&h=442)
 ## Legends
 ### Horizontal Legends
+![Horizontal Legend](http://dexvis.files.wordpress.com/2013/03/horizontalordinallegend.png?w=636&h=170)
 ### Vertical Legends
+![Vertical Legend](http://dexvis.files.wordpress.com/2013/03/image12.png?w=780&h=543)
